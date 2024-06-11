@@ -1,0 +1,299 @@
+﻿<Window x:Class="ArmEquipmentRepair.UI.Main.NavigationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmEquipmentRepair.UI.Main"
+        xmlns:converters="clr-namespace:ArmEquipmentRepair.UI.Converters"
+        xmlns:requestPage="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.RequestsReviewer.Views"
+        d:DataContext="{d:DesignInstance Type=local:NavigationWindowVM}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Height="600"
+        Width="1000">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Colors/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:NotificationsIndicatorConverter x:Key="ToRequestsPage" />
+            <Style x:Key="NavigationButtonStyle"
+                   TargetType="{x:Type RadioButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                            <Grid x:Name="templateRoot"
+                                  Background="Transparent"
+                                  SnapsToDevicePixels="True">
+                                <Border x:Name="border">
+                                    <ContentPresenter x:Name="contentPresenter"
+                                                      Grid.Column="1"
+                                                      Focusable="False"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      RecognizesAccessKey="True"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasContent"
+                                         Value="true">
+
+                                    <Setter Property="Padding"
+                                            Value="4,-1,0,0" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                         Value="true">
+                                    <Setter Property="Background"
+                                            TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black"
+                                                             Opacity="0" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Cursor"
+                                            Value="Hand" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled"
+                                         Value="false">
+                                    <Setter Property="Background"
+                                            TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black"
+                                                             Opacity="0" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed"
+                                         Value="true">
+                                    <Setter Property="Background"
+                                            TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black"
+                                                             Opacity="0" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsChecked"
+                                         Value="true">
+                                    <Setter Property="Background"
+                                            TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black"
+                                                             Opacity="0.4" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsChecked"
+                                         Value="{x:Null}">
+                                    <Setter Property="Background"
+                                            TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black"
+                                                             Opacity="0" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Stretch"
+                    Grid.RowSpan="2"
+                    Background="{StaticResource PrimaryColor}">
+            <RadioButton Style="{DynamicResource NavigationButtonStyle}"
+                         x:Name="ToRequestsPage"
+                         Background="Transparent"
+                         IsChecked="True"
+                         Command="{Binding ChangePageCommand}">
+                <ToggleButton.Content>
+                    <Grid  Width="90"
+                           Margin="-5,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image  VerticalAlignment="Center"
+                                Source="../Resources/Images/request-icon.png"
+                                Height="30"
+                                HorizontalAlignment="Center" />
+                        <TextBlock Text="заявки"
+                                   Grid.Row="1"
+                                   Margin="0,10"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White" />
+                    </Grid>
+                </ToggleButton.Content>
+            </RadioButton>
+
+
+            <RadioButton  Command="{Binding ChangePageCommand}"
+                          Style="{DynamicResource NavigationButtonStyle}"
+                          x:Name="ToStatisticsPage"
+                          Visibility="{Binding StatisticsPageVisible}"
+                          Background="Transparent">
+                <ToggleButton.Content>
+                    <Grid  Width="90"
+                           Margin="-5,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image  VerticalAlignment="Center"
+                                Source="../Resources/Images/statistic-icon.png"
+                                Height="30"
+                                HorizontalAlignment="Center" />
+                        <TextBlock Text="статистика"
+                                   Grid.Row="1"
+                                   Margin="0,10"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White" />
+                    </Grid>
+                </ToggleButton.Content>
+            </RadioButton>
+
+
+            <RadioButton  Command="{Binding ChangePageCommand}"
+                          Style="{DynamicResource NavigationButtonStyle}"
+                          x:Name="ToCreaterPage"
+                          Visibility="{Binding CreateRequestPageVisible}"
+                          Background="Transparent">
+                <ToggleButton.Content>
+                    <Grid  Width="90"
+                           Margin="-5,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image  VerticalAlignment="Center"
+                                Source="../Resources/Images/statistic-icon.png"
+                                Height="30"
+                                HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="1"
+                                   Margin="0,10"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White">
+                          создание<LineBreak />заявок
+                        </TextBlock>
+                    </Grid>
+                </ToggleButton.Content>
+            </RadioButton>
+        </StackPanel>
+
+
+        <Button Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,30"
+                BorderThickness="0"
+                Command="{Binding ShowNotificationsCommand}"
+                Background="Transparent">
+            <Border CornerRadius="20"
+                    Width="40"
+                    Height="40"
+                    BorderThickness="1"
+                    BorderBrush="White">
+                <Grid>
+                    <Ellipse Fill="Red"
+                             Visibility="{Binding Path=NotificationsIndicator, Converter = {StaticResource ToRequestsPage}}"
+                             Height="10"
+                             Width="10"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top" />
+                    <Image Width="20"
+                           Source="../Resources/Images/notification-icon.png" />
+                </Grid>
+            </Border>
+        </Button>
+
+
+        <Border   Grid.Column="1"
+                  BorderBrush="{StaticResource PrimaryColor}"
+                  BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding TitlePage, FallbackValue=Title}"
+                           Foreground="{StaticResource PrimaryTextColor}"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="20,0" />
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal">
+                    <Button Grid.Column="1"
+                            Width="80"
+                            Background="White"
+                            BorderThickness="0"
+                            Command="{Binding ShowProfileCommand}">
+                        <Image Source="../Resources/Images/worker-icon.png"
+                               Width="20" />
+                    </Button>
+
+                    <Button Grid.Column="1"
+                            Width="80"
+                            Background="White"
+                            BorderThickness="0"
+                            Click="MinimizedWindow">
+                        <Image Source="../Resources/Images/minimized-icon.png"
+                               Width="20" />
+                    </Button>
+
+                    <Button Grid.Column="2"
+                            Width="80"
+                            Background="White"
+                            BorderThickness="0"
+                            Content="X"
+                            FontSize="20"
+                            Foreground="{StaticResource PrimaryTextColor}"
+                            Click="CloseWindow" />
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+
+        <Frame NavigationUIVisibility="Hidden"
+               x:Name="PageContainer"
+               Grid.Column="1"
+               Content="{Binding CurrentPage, Mode=TwoWay}"
+               Grid.Row="1" />
+
+        <Grid Grid.ColumnSpan="2"
+              Grid.RowSpan="2"
+              Background="Gray"
+              x:Name="DeactivatedGrid"
+              Visibility="Collapsed"
+              Opacity="0.5"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch" />
+    </Grid>
+</Window>

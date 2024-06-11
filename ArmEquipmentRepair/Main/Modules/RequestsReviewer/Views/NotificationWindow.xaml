@@ -1,0 +1,72 @@
+﻿<Window x:Class="ArmEquipmentRepair.UI.Main.Modules.RequestsReviewer.Views.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.RequestsReviewer.Views"
+        xmlns:templates="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.RequestsReviewer.Views.Templates"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="NotificationWindow"
+        Height="500"
+        Width="400">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../../Resources/Colors/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer CanContentScroll="False"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Notifications}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          Margin="10">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <templates:NotificationTemplate HorizontalAlignment="Stretch"
+                                                        MouseDoubleClick="NotificationTemplate_MouseDoubleClick"
+                                                        DataContext="{Binding .}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Border BorderBrush="{StaticResource PrimaryColor}"
+                Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding ClearAllCommand}"
+                        Height="25"
+                        VerticalAlignment="Bottom"
+                        Margin="20,10,10,20"
+                        BorderThickness="0"
+                        Content="удалить всё"
+                        Foreground="White"
+                        Background="IndianRed" />
+                <Button Click="CloseButtonClick"
+                        Height="25"
+                        VerticalAlignment="Bottom"
+                        Margin="10,10,20,20"
+                        BorderThickness="0"
+                        Grid.Column="1"
+                        Foreground="White"
+                        Content="закрыть"
+                        Background="{StaticResource SecondaryColor}" />
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

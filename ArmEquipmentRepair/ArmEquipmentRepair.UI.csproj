@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <None Remove="Resources\Images\back-icon.png" />
+    <None Remove="Resources\Images\filter-icon.png" />
+    <None Remove="Resources\Images\minimized-icon.png" />
+    <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\request-icon.png" />
+    <None Remove="Resources\Images\send-icon.png" />
+    <None Remove="Resources\Images\statistic-icon.png" />
+    <None Remove="Resources\Images\worker-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Colors\Colors.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArmEquipmentRepair.Application\ArmEquipmentRepair.Application.csproj" />
+    <ProjectReference Include="..\ArmEquipmentRepair.Infrastructure\ArmEquipmentRepair.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Colors\Colors.xaml" />
+    <Resource Include="Resources\Images\back-icon.png" />
+    <Resource Include="Resources\Images\filter-icon.png" />
+    <Resource Include="Resources\Images\minimized-icon.png" />
+    <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\request-icon.png" />
+    <Resource Include="Resources\Images\send-icon.png" />
+    <Resource Include="Resources\Images\statistic-icon.png" />
+    <Resource Include="Resources\Images\worker-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UserSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="UserSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,148 @@
+﻿<Page x:Class="ArmEquipmentRepair.UI.Main.Modules.Statistics.Views.StatisticPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.Statistics.Views"
+      xmlns:viewmodels="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.Statistics.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:StatisticVM}"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="StatisticPage">
+
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../../Resources/Colors/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock"
+                   x:Key="TextBlockStyle">
+                <Style.Setters>
+                    <Setter Property="FontSize"
+                            Value="16" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="Foreground"
+                            Value="{StaticResource PrimaryTextColor}" />
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <Grid Background="White">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Margin="20"
+                    VerticalAlignment="Top">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       FontWeight="DemiBold"
+                       Text="Статистика по количеству заявок" />
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,10">
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="Всего заявок:"
+                           Margin="0,0,15,0" />
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding Count, FallbackValue=0}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="Выполнено заявок:"
+                           Margin="0,0,15,0" />
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding CountSuccsess, FallbackValue=0}" />
+
+            </StackPanel>
+
+            <ProgressBar Value="{Binding ProcentCountSuccsess,Mode=OneWay,FallbackValue=10}"
+                         Height="40"
+                         Background="White"
+                         BorderBrush="{StaticResource PrimaryColor}"
+                         Foreground="{StaticResource ThirdColor}"
+                         HorizontalAlignment="Stretch"
+                         Margin="0,20" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="Заявок в работе:"
+                           Margin="0,0,15,0" />
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding CountInProcess, FallbackValue=0}" />
+
+            </StackPanel>
+
+            <ProgressBar Value="{Binding ProcentCountInProcess,Mode=OneWay, FallbackValue=10}"
+                         Height="40"
+                         Background="White"
+                         BorderBrush="{StaticResource PrimaryColor}"
+                         Foreground="{StaticResource ThirdColor}"
+                         HorizontalAlignment="Stretch"
+                         Margin="0,20" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="Среднее время выполнения заявки:"
+                           Margin="0,0,15,0" />
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding AverageTime, FallbackValue=0}" />
+
+            </StackPanel>
+
+            <Button Command="{Binding UpdateStatisticCommand}"
+                    Background="{StaticResource SecondaryColor}"
+                    Margin="0,40,0,0"
+                    Content="обновить статистику"
+                    Foreground="White"
+                    FontSize="14"
+                    Height="30" />
+
+        </StackPanel>
+
+        <ScrollViewer Grid.Column="1" Margin="20">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontWeight="DemiBold"
+                           Text="Статистика по типам неисправностей" />
+                <ItemsControl ItemsSource="{Binding CountByTypeFaults}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding TypeFault}"
+                                           Width="150"
+                                           Style="{StaticResource TextBlockStyle}" />
+
+                                <ProgressBar Value="{Binding Procent,Mode=OneWay}"
+                                             BorderBrush="{StaticResource PrimaryColor}"
+                                             Foreground="{StaticResource ThirdColor}"
+                                             Height="30"
+                                             Grid.Column="1"
+                                             HorizontalAlignment="Stretch"
+                                             Background="AliceBlue"
+                                             Margin="20,20" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+
+
+
+        </ScrollViewer>
+
+
+    </Grid>
+</Page>

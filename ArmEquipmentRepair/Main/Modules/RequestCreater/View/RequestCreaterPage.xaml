@@ -1,0 +1,186 @@
+﻿<Page x:Class="ArmEquipmentRepair.UI.Main.Modules.RequestCreater.View.RequestCreaterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.RequestCreater.View"
+      xmlns:viewmodel="clr-namespace:ArmEquipmentRepair.UI.Main.Modules.RequestCreater.ViewModel"
+      d:DataContext="{d:DesignInstance Type=viewmodel:RequestCreaterPageVM}"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="RequestCreaterPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../../Resources/Colors/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock"
+                   x:Key="InputNameStyle">
+                <Style.Setters>
+                    <Setter Property="FontSize"
+                            Value="16" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="Foreground"
+                            Value="{StaticResource PrimaryTextColor}" />
+                </Style.Setters>
+            </Style>
+            <Style TargetType="TextBox"
+                   x:Key="InputStyle">
+                <Style.Setters>
+                    <Setter Property="Margin"
+                            Value="20,0" />
+                    <Setter Property="FontSize"
+                            Value="16" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="Foreground"
+                            Value="{StaticResource PrimaryColor}" />
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+
+
+    </Page.Resources>
+
+
+    <Grid Background="White">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
+
+                <TextBlock Text="Данные по заявке"
+                           FontSize="20"
+                           Margin="20,20,20,10"
+                           FontWeight="DemiBold"
+                           Style="{StaticResource InputNameStyle}" />
+
+                <TextBlock Style="{StaticResource InputNameStyle}"
+                           Margin="20,10"
+                           Text="Оборудование:" />
+
+                <TextBox Style="{StaticResource InputStyle}"
+                         Margin="20,0"
+                         TextWrapping="Wrap"
+                         Text="{Binding Equipment}" />
+
+                <TextBlock VerticalAlignment="Center"
+                           Style="{StaticResource InputNameStyle}"
+                           Margin="20,10"
+                           Text="Тип неисправности:" />
+
+                <ComboBox FontSize="16"
+                          Background="White"
+                          ItemsSource="{Binding TypeFaults}"
+                          Foreground="{StaticResource PrimaryTextColor}"
+                          Margin="20,0"
+                          SelectedItem="{Binding TypeFault}" />
+
+                <TextBlock Text="Описание:"
+                           Margin="20,10"
+                           Style="{StaticResource InputNameStyle}" />
+
+                <TextBox Margin="20,0"
+                         TextWrapping="Wrap"
+                         Height="Auto"
+                         Style="{StaticResource InputStyle}"
+                         Text="{Binding Description}" />
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Column="1"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <TextBlock Text="Данные о клиенте"
+                       FontSize="20"
+                       Margin="20,20,20,10"
+                       FontWeight="DemiBold"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBlock Text="Имя:"
+                       Margin="20,10"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBox Style="{StaticResource InputStyle}"
+                     Margin="20,0"
+                     Text="{Binding FirstName}" />
+
+            <TextBlock Grid.Row="6"
+                       Margin="20,10"
+                       Text="Отчество:"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBox Style="{StaticResource InputStyle}"
+                     Margin="20,0"
+                     Text="{Binding SecondName}" />
+
+            <TextBlock Text="Фамилия:"
+                       Margin="20,10"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBox Style="{StaticResource InputStyle}"
+                     Margin="20,0"
+                     Text="{Binding LastName}" />
+
+            <TextBlock Text="Телефон:"
+                       Margin="20,10"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBox Margin="20,0"
+                     MaxLength="11"
+                     Style="{StaticResource InputStyle}"
+                     Text="{Binding PhoneNumber}" />
+
+            <TextBlock Text="Эл. почта:"
+                       Grid.Column="2"
+                       Margin="20,10"
+                       Style="{StaticResource InputNameStyle}" />
+
+            <TextBox Margin="20,0"
+                     Style="{StaticResource InputStyle}"
+                     Text="{Binding Email}" />
+        </StackPanel>
+
+
+
+        <StackPanel Grid.ColumnSpan="2"
+                    Margin="20"
+                    Orientation="Horizontal"
+                    Grid.Row="1">
+
+            <Button Grid.Row="8"
+                    Margin="0,0,20,0"
+                    Background="IndianRed"
+                    Command="{Binding ClearDataCommand}"
+                    Grid.Column="2"
+                    Height="30"
+                    Width="220"
+                    Foreground="White"
+                    Content="очистить" />
+
+            <Button Grid.Row="8"
+                    Background="{StaticResource SecondaryColor}"
+                    Grid.Column="3"
+                    Command="{Binding CreateRequestCommand}"
+                    Height="30"
+                    Width="220"
+                    HorizontalAlignment="Right"
+                    Foreground="White"
+                    Content="создать" />
+        </StackPanel>
+
+    </Grid>
+</Page>
