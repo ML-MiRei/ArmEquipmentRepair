@@ -3,16 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArmEquipmentRepair.Infrastructure.Persistence.Context;
 
-public partial class MyDbContext : DbContext
+public partial class MyDbContext(string connectionString) : DbContext
 {
-    public MyDbContext()
-    {
-    }
 
-    public MyDbContext(DbContextOptions<MyDbContext> options)
-        : base(options)
-    {
-    }
 
     public virtual DbSet<Client> Clients { get; set; }
 
@@ -31,8 +24,7 @@ public partial class MyDbContext : DbContext
     public virtual DbSet<TypesFault> TypesFaults { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-E86S7QI;Database=ArmEquipmentRepairDB;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true;");
+        => optionsBuilder.UseSqlServer(connectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

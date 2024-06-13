@@ -24,7 +24,7 @@ namespace ArmEquipmentRepair.UI.Services
 
         public static void WaitTaskWithLoadingWindow(Action action)
         {
-
+            _loadingWindow = new LoadingWindow();
             _loadingWindow.Show();
 
             var task = Task.Run(async () =>

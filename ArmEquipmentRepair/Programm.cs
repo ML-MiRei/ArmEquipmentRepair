@@ -13,6 +13,7 @@ using ArmEquipmentRepair.UI.Main.Modules.Statistics.Views;
 using ArmEquipmentRepair.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Windows;
 
 namespace ArmEquipmentRepair.UI
 {
@@ -25,11 +26,19 @@ namespace ArmEquipmentRepair.UI
         public static void Main()
         {
 
+            if (string.IsNullOrEmpty(System.Configuration.ConfigurationManager.ConnectionStrings["SqlServerConnectionString"].ConnectionString))
+            {
+                MessageBox.Show("Ошибка подключения к базе данных. Проверьте наличие строки подключения в файле конфигурации", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                return;
+            }
+
+
             host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddMediatr();
                 services.AddEvents();
-                services.AddInfrastructure();
+                services.AddInfrastructure(System.Configuration.ConfigurationManager.ConnectionStrings["SqlServerConnectionString"].ConnectionString);
 
                 services.AddSingleton<IEventsService, EventsService>();
                 services.AddSingleton<IUser, CurrentUser>();
